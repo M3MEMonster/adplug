@@ -41,6 +41,7 @@ class CdroPlayer: public CPlayer
 		unsigned int iLength;
 		unsigned int iPos;
 		unsigned int iDelay;
+		unsigned int iDataOffset;
 
 	private:
 		char title[40];
@@ -48,6 +49,10 @@ class CdroPlayer: public CPlayer
 		char desc[1023];
 		enum {DRO_V0, DRO_V1};
 		int type;
+		uint16_t majorVersion, minorVersion;
+
+		bool parseTag(binistream *f, unsigned long offset, unsigned long size);
+		bool verifyLength(binistream *f, bool old, uint32_t len, unsigned long size);
 
 	public:
 		static CPlayer *factory(Copl *newopl);
